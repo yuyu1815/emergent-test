@@ -165,6 +165,17 @@ export const LeftSidebar = ({ currentPage, setCurrentPage, onTweetClick, theme, 
     { id: 'more', label: 'More', icon: MoreIcon }
   ];
 
+  const handleThemeToggle = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    // Force update the document class for immediate effect
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
   return (
     <div className="w-64 lg:w-72 xl:w-80 h-screen sticky top-0 p-4 hidden lg:flex flex-col">
       <div className="mb-8">
@@ -178,7 +189,8 @@ export const LeftSidebar = ({ currentPage, setCurrentPage, onTweetClick, theme, 
             <button
               key={item.id}
               onClick={() => setCurrentPage(item.id)}
-              className="flex items-center space-x-4 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200 w-full text-left mb-2"
+              className="nav-item flex items-center space-x-4 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200 w-full text-left mb-2"
+              data-testid={`nav-${item.id}`}
             >
               <IconComponent active={currentPage === item.id} />
               <span className={`text-xl ${currentPage === item.id ? 'font-bold' : ''}`}>
@@ -191,8 +203,9 @@ export const LeftSidebar = ({ currentPage, setCurrentPage, onTweetClick, theme, 
 
       <div className="space-y-4">
         <button
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          className="flex items-center space-x-4 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200 w-full text-left"
+          onClick={handleThemeToggle}
+          className="theme-toggle flex items-center space-x-4 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200 w-full text-left"
+          data-testid="theme-toggle"
         >
           {theme === 'light' ? <MoonIcon /> : <SunIcon />}
           <span className="text-xl">
@@ -202,12 +215,13 @@ export const LeftSidebar = ({ currentPage, setCurrentPage, onTweetClick, theme, 
         
         <button
           onClick={onTweetClick}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full w-full transition-colors duration-200"
+          className="tweet-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full w-full transition-colors duration-200"
+          data-testid="tweet-button"
         >
           Tweet
         </button>
         
-        <div className="flex items-center space-x-3 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200">
+        <div className="user-profile flex items-center space-x-3 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200">
           <img 
             src="https://images.unsplash.com/photo-1488751045188-3c55bbf9a3fa?w=150&h=150&fit=crop&crop=face" 
             alt="Profile" 
