@@ -199,21 +199,27 @@ function App() {
     }));
   };
 
-  const addNewTweet = (content, image = null) => {
-    const newTweet = {
-      id: tweets.length + 1,
-      user: currentUser,
-      content,
-      timestamp: 'now',
-      likes: 0,
-      retweets: 0,
-      replies: 0,
-      image,
-      liked: false,
-      retweeted: false
-    };
-    setTweets([newTweet, ...tweets]);
-    setShowTweetModal(false);
+  const addNewTweet = (tweetData) => {
+    // If tweetData is a string (from modal), convert to tweet object
+    if (typeof tweetData === 'string') {
+      const newTweet = {
+        id: tweets.length + 1,
+        user: currentUser,
+        content: tweetData,
+        timestamp: 'now',
+        likes: 0,
+        retweets: 0,
+        replies: 0,
+        image: null,
+        liked: false,
+        retweeted: false
+      };
+      setTweets([newTweet, ...tweets]);
+      setShowTweetModal(false);
+    } else {
+      // If tweetData is already an object (from inline composer)
+      setTweets([tweetData, ...tweets]);
+    }
   };
 
   return (
