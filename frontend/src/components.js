@@ -386,7 +386,8 @@ export const TweetComposerInline = ({ currentUser, onNewTweet }) => {
 
   const handleSubmit = () => {
     if (content.trim()) {
-      onNewTweet();
+      // Call onNewTweet with the actual content
+      onNewTweet(content);
       setContent('');
     }
   };
