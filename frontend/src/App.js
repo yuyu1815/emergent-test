@@ -199,7 +199,7 @@ function App() {
     }));
   };
 
-  const addNewTweet = (tweetData) => {
+  const addNewTweet = (tweetData, image = null) => {
     // If tweetData is a string (from modal), convert to tweet object
     if (typeof tweetData === 'string') {
       const newTweet = {
@@ -210,7 +210,7 @@ function App() {
         likes: 0,
         retweets: 0,
         replies: 0,
-        image: null,
+        image: image, // Use the image parameter
         liked: false,
         retweeted: false
       };
