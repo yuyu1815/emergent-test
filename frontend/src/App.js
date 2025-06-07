@@ -238,7 +238,7 @@ function App() {
             tweets={tweets}
             onTweetAction={handleTweetAction}
             currentUser={currentUser}
-            onNewTweet={() => setShowTweetModal(true)}
+            onNewTweet={addNewTweet}
           />
           <RightSidebar 
             trendingTopics={trendingTopics}
