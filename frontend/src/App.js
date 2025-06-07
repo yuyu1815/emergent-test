@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { 
   MainLayout, 
@@ -14,6 +14,27 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [showTweetModal, setShowTweetModal] = useState(false);
   const [theme, setTheme] = useState('light');
+  
+  // Initialize theme on component mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('twitter-theme') || 'light';
+    setTheme(savedTheme);
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // Update theme and save to localStorage
+  useEffect(() => {
+    localStorage.setItem('twitter-theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
   const [tweets, setTweets] = useState([
     {
       id: 1,
