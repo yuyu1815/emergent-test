@@ -298,7 +298,7 @@ export const RightSidebar = ({ trendingTopics, whoToFollow }) => (
 );
 
 export const TweetCard = ({ tweet, onAction }) => (
-  <div className="border-b border-gray-200 dark:border-gray-800 p-4 hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors duration-200">
+  <div className="tweet-card border-b border-gray-200 dark:border-gray-800 p-4 hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors duration-200">
     <div className="flex space-x-3">
       <img 
         src={tweet.user.avatar} 
@@ -330,7 +330,8 @@ export const TweetCard = ({ tweet, onAction }) => (
         <div className="flex items-center justify-between max-w-md">
           <button
             onClick={() => onAction(tweet.id, 'reply')}
-            className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 p-2 rounded-full transition-colors duration-200"
+            className="tweet-reply-btn flex items-center space-x-2 text-gray-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 p-2 rounded-full transition-colors duration-200"
+            data-testid={`reply-${tweet.id}`}
           >
             <ReplyIcon />
             <span className="text-sm">{tweet.replies}</span>
@@ -338,7 +339,8 @@ export const TweetCard = ({ tweet, onAction }) => (
           
           <button
             onClick={() => onAction(tweet.id, 'retweet')}
-            className={`flex items-center space-x-2 ${tweet.retweeted ? 'text-green-500' : 'text-gray-500'} hover:text-green-500 hover:bg-green-50 dark:hover:bg-green-950 p-2 rounded-full transition-colors duration-200`}
+            className={`tweet-retweet-btn flex items-center space-x-2 ${tweet.retweeted ? 'text-green-500' : 'text-gray-500'} hover:text-green-500 hover:bg-green-50 dark:hover:bg-green-950 p-2 rounded-full transition-colors duration-200`}
+            data-testid={`retweet-${tweet.id}`}
           >
             <RetweetIcon active={tweet.retweeted} />
             <span className="text-sm">{tweet.retweets}</span>
@@ -346,13 +348,17 @@ export const TweetCard = ({ tweet, onAction }) => (
           
           <button
             onClick={() => onAction(tweet.id, 'like')}
-            className={`flex items-center space-x-2 ${tweet.liked ? 'text-red-500' : 'text-gray-500'} hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950 p-2 rounded-full transition-colors duration-200`}
+            className={`tweet-like-btn flex items-center space-x-2 ${tweet.liked ? 'text-red-500' : 'text-gray-500'} hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950 p-2 rounded-full transition-colors duration-200`}
+            data-testid={`like-${tweet.id}`}
           >
             <HeartIcon filled={tweet.liked} />
             <span className="text-sm">{tweet.likes}</span>
           </button>
           
-          <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 p-2 rounded-full transition-colors duration-200">
+          <button 
+            className="tweet-share-btn flex items-center space-x-2 text-gray-500 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 p-2 rounded-full transition-colors duration-200"
+            data-testid={`share-${tweet.id}`}
+          >
             <ShareIcon />
           </button>
         </div>
