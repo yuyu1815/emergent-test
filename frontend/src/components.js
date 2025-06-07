@@ -404,13 +404,17 @@ export const TweetComposerInline = ({ currentUser, onNewTweet }) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="What's happening?"
-            className="w-full bg-transparent text-xl placeholder-gray-500 resize-none focus:outline-none min-h-[120px]"
+            className="tweet-composer-textarea w-full bg-transparent text-xl placeholder-gray-500 resize-none focus:outline-none min-h-[120px]"
             rows="3"
+            data-testid="tweet-composer-textarea"
           />
           
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center space-x-4">
-              <button className="text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 p-2 rounded-full transition-colors duration-200">
+              <button 
+                className="text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950 p-2 rounded-full transition-colors duration-200"
+                data-testid="image-button"
+              >
                 <ImageIcon />
               </button>
             </div>
@@ -422,7 +426,8 @@ export const TweetComposerInline = ({ currentUser, onNewTweet }) => {
               <button
                 onClick={handleSubmit}
                 disabled={!content.trim() || content.length > 280}
-                className="bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-2 px-6 rounded-full transition-colors duration-200"
+                className="tweet-submit-btn bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-2 px-6 rounded-full transition-colors duration-200"
+                data-testid="tweet-submit"
               >
                 Tweet
               </button>
