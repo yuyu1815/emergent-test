@@ -238,25 +238,46 @@ export const LeftSidebar = ({ currentPage, setCurrentPage, onTweetClick, theme, 
   );
 };
 
-export const MainFeed = ({ tweets, onTweetAction, currentUser, onNewTweet }) => (
-  <div className="flex-1 max-w-xl border-x border-gray-200 dark:border-gray-800 min-h-screen pt-16 lg:pt-0">
-    <div className="sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 p-4 z-10">
-      <h1 className="text-xl font-bold">Home</h1>
-    </div>
+export const MainFeed = ({ tweets, onTweetAction, currentUser, onNewTweet }) => {
+  const handleNewTweet = (content) => {
+    // Create a mock new tweet with the actual content
+    const newTweet = {
+      id: tweets.length + 1,
+      user: currentUser,
+      content,
+      timestamp: 'now',
+      likes: 0,
+      retweets: 0,
+      replies: 0,
+      image: null,
+      liked: false,
+      retweeted: false
+    };
     
-    <TweetComposerInline currentUser={currentUser} onNewTweet={onNewTweet} />
-    
-    <div>
-      {tweets.map(tweet => (
-        <TweetCard 
-          key={tweet.id} 
-          tweet={tweet} 
-          onAction={onTweetAction}
-        />
-      ))}
+    // Call the parent's onNewTweet function with the new tweet data
+    onNewTweet(newTweet);
+  };
+
+  return (
+    <div className="flex-1 max-w-xl border-x border-gray-200 dark:border-gray-800 min-h-screen pt-16 lg:pt-0">
+      <div className="sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 p-4 z-10">
+        <h1 className="text-xl font-bold">Home</h1>
+      </div>
+      
+      <TweetComposerInline currentUser={currentUser} onNewTweet={handleNewTweet} />
+      
+      <div>
+        {tweets.map(tweet => (
+          <TweetCard 
+            key={tweet.id} 
+            tweet={tweet} 
+            onAction={onTweetAction}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const RightSidebar = ({ trendingTopics, whoToFollow }) => (
   <div className="w-80 p-4 hidden xl:block">
